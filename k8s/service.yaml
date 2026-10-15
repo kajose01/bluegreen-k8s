@@ -1,0 +1,15 @@
+# The traffic switch: change spec.selector.version between blue and green
+apiVersion: v1
+kind: Service
+metadata:
+  name: bluegreen-svc
+  namespace: bluegreen
+spec:
+  type: NodePort
+  selector:
+    app: bluegreen-demo
+    version: blue
+  ports:
+    - port: 80
+      targetPort: 3000
+      nodePort: 30090
