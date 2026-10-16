@@ -1,0 +1,12 @@
+== BEFORE: service points to blue
+     10 "version":"blue"
+deployment "app-green" successfully rolled out
+service/bluegreen-svc patched
+08:57:54 traffic now goes to: green
+== AFTER: switched to green
+     10 "version":"green"
+deployment "app-blue" successfully rolled out
+service/bluegreen-svc patched
+08:57:57 traffic now goes to: blue
+== ROLLBACK: back to blue
+     10 "version":"blue"
