@@ -84,4 +84,5 @@ Client -> NodePort Service `bluegreen-svc` (selector `app=bluegreen-demo, versio
 ## Scope and limitations
 - This is a blue-green deployment demonstration. A real application with a shared database would need backward-compatible (expand/contract) schema changes so both versions can run against the same data during a release.
 - The cluster is single-node, so replica spreading across nodes and node-failure recovery were not tested.
+- Hardening: non-root, no privilege escalation, `seccompProfile: RuntimeDefault`. A read-only root filesystem was not evaluated.
 - Images use the `blue` and `green` tags; unique commit-based tags and digest pinning are future improvements.
