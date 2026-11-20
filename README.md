@@ -72,3 +72,16 @@ Both Deployments stay running (2 replicas each), so the idle version is ready fo
 | The first test run looked successful but tested nothing. `kubectl apply` rejected the Service because NodePort 30090 was already used by another app on the cluster, and the check script still curled that port. | Moved the Service to NodePort 30191, made `check.sh` read the port from the Service, and made it print only the `version` field, so a response from the wrong app shows as `no-response`. |
 | Right after switching back to blue, the check still got green answers, although the selector was already `blue`. | The selector changes instantly, but kube-proxy takes a moment to update its routing rules. `switch.sh` now waits 3 seconds after the patch. |
 | The fixes had to reach all branches. | Committed on `main`, then merged `main` into `blue` and `green` so every branch has the same scripts and manifests. |
+
+## Architecture and traffic flow
+Client -> NodePort Service `bluegreen-svc` (selector `app=bluegreen-demo, version=<blue|green>`) -> pods of `app-blue` or `app-green`. Switching changes only the Service's `version` selector; both Deployments keep running, so rollback is another selector change.
+
+## Release validation (scripts)
+- `scripts/check.sh [version] [n]`: sends n requests and exits 1 on any missing or unexpected version.
+- `scripts/switch.sh blue|green`: requires all target replicas Ready, patches the selector, verifies 10/10 real responses, and rolls back automatically if verification fails. Outcomes are logged to `evidence/release.log`.
+- Failed-release test: `evidence/failed-release.log` shows a broken green image being rejected while blue kept serving.
+
+## Scope and limitations
+- This is a blue-green deployment demonstration. A real application with a shared database would need backward-compatible (expand/contract) schema changes so both versions can run against the same data during a release.
+- The cluster is single-node, so replica spreading across nodes and node-failure recovery were not tested.
+- Images use the `blue` and `green` tags; unique commit-based tags and digest pinning are future improvements.
