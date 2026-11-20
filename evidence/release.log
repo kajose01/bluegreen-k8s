@@ -8,3 +8,7 @@
 11:23:03 SUCCESS: traffic now goes to blue (10/10 verified responses)
 11:25:56 release start: target=green previous=blue
 11:26:26 REJECTED: app-green did not become ready; traffic stays on blue
+11:47:26 release start: target=green previous=blue
+11:47:26 SUCCESS: traffic now goes to green (10/10 verified responses)
+11:48:00 release start: target=blue previous=green
+11:48:00 SUCCESS: traffic now goes to blue (10/10 verified responses)
