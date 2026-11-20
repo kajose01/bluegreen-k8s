@@ -33,7 +33,7 @@ if ! kubectl -n "$NS" rollout status "deploy/app-$TARGET" --timeout="$TIMEOUT"; 
 fi
 DESIRED=$(kubectl -n "$NS" get deploy "app-$TARGET" -o jsonpath='{.spec.replicas}')
 READY=$(kubectl -n "$NS" get deploy "app-$TARGET" -o jsonpath='{.status.readyReplicas}')
-if [[ "${READY:-0}" != "$DESIRED" ]]; then
+if [[ "${DESIRED:-0}" -lt 1 || "${READY:-0}" != "$DESIRED" ]]; then
   log "REJECTED: only ${READY:-0}/$DESIRED replicas ready; traffic stays on $PREV"
   exit 1
 fi
