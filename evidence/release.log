@@ -1,0 +1,10 @@
+11:20:46 release start: target=green previous=blue
+11:20:46 SUCCESS: traffic now goes to green (10/10 verified responses)
+11:20:46 release start: target=blue previous=green
+11:20:49 SUCCESS: traffic now goes to blue (10/10 verified responses)
+11:23:00 release start: target=green previous=blue
+11:23:01 SUCCESS: traffic now goes to green (10/10 verified responses)
+11:23:01 release start: target=blue previous=green
+11:23:03 SUCCESS: traffic now goes to blue (10/10 verified responses)
+11:25:56 release start: target=green previous=blue
+11:26:26 REJECTED: app-green did not become ready; traffic stays on blue

@@ -1,0 +1,8 @@
+== Failed green release Fri Nov 20 11:25:56 UTC 2026 ==
+11:25:56 release start: target=green previous=blue
+Waiting for deployment "app-green" rollout to finish: 1 out of 2 new replicas have been updated...
+11:26:26 REJECTED: app-green did not become ready; traffic stays on blue
+switch exit=1
+     10 blue
+RESULT: PASS (10/10 responses from blue)
+blue still serving, exit=0
